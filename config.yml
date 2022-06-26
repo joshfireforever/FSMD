@@ -33,3 +33,4 @@ config:
 historical_range_hours: 48
 interval_hours: 6
 starting_hour: 0
+real_time_mode: True

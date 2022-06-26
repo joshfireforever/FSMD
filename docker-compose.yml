@@ -12,14 +12,6 @@ services:
     - --storage.tsdb.allow-overlapping-blocks
     volumes:
     - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
-  prometheus-data-generator:
-    image: joshfireforever/prometheus-data-generator:latest
-    container_name: prometheus-data-generator
-    ports:
-    - 9000:9000
-    volumes:
-    - ./config.yml:/config.yml
-    privileged: true
   grafana:
     image: grafana/grafana
     container_name: grafana
@@ -31,4 +23,14 @@ services:
       - grafana-data:/var/lib/grafana
       - ./FSMD.json:/var/lib/grafana/dashboards/FSMD.json
     restart: always
-    
+  prometheus-data-generator:
+    image: joshfireforever/prometheus-data-generator:latest
+    container_name: prometheus-data-generator
+    ports:
+    - 9000:9000
+    command:
+    - --config.yml=/home/appuser/config.yml
+    volumes:
+    - ./config.yml:/config.yml:ro
+    privileged: true
+    restart: always
