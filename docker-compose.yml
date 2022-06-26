@@ -1,0 +1,34 @@
+volumes:
+  grafana-data: {}
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+    - 9090:9090
+    command:
+    - --config.file=/etc/prometheus/prometheus.yml
+    - --storage.tsdb.retention.time=1y
+    - --storage.tsdb.allow-overlapping-blocks
+    volumes:
+    - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+  prometheus-data-generator:
+    image: joshfireforever/prometheus-data-generator:latest
+    container_name: prometheus-data-generator
+    ports:
+    - 9000:9000
+    volumes:
+    - ./config.yml:/config.yml
+    privileged: true
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - 3000:3000
+    volumes:
+      - ./provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - ./provisioning/datasources:/etc/grafana/provisioning/datasources
+      - grafana-data:/var/lib/grafana
+      - ./FSMD.json:/var/lib/grafana/dashboards/FSMD.json
+    restart: always
+    
