@@ -2,7 +2,7 @@
 config:
   - name: total_runtime_minutes
     description: The amount of runtime each forecast takes, in minutes.
-    type: histogram
+    type: gauge
     sequence:
       - eval_time: 1
         interval: 5
@@ -10,10 +10,9 @@ config:
         standard_deviation: 7.5
         minimum: 0
         maximum: 120
-        type: histogram
   - name: I_O_Fraction_percent
     description: The ratio of time spent in input to time spent in output.
-    type: histogram
+    type: gauge
     sequence:
       - eval_time: 1
         interval: 5
@@ -21,10 +20,9 @@ config:
         standard_deviation: 3
         minimum: 0
         maximum: 100
-        type: histogram
   - name: Initial_RMS_pressure_tendency
     description: The initial RMS pressure tendency.
-    type: histogram
+    type: gauge
     sequence:
       - eval_time: 1
         interval: 5
@@ -32,7 +30,6 @@ config:
         standard_deviation: 0.1
         minimum: 0
         maximum: 2
-        type: histogram
 historical_range_hours: 48
 interval_hours: 6
 starting_hour: 0
