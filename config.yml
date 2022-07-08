@@ -30,7 +30,7 @@ config:
         standard_deviation: 0.1
         minimum: 0
         maximum: 2
-historical_range_hours: 48
+historical_range_hours: 336
 interval_hours: 6
 starting_hour: 0
 real_time_mode: True
