@@ -26,11 +26,9 @@ services:
   prometheus-data-generator:
     image: joshfireforever/prometheus-data-generator:latest
     container_name: prometheus-data-generator
+    command: bash -c "python /home/appuser/prometheus_data_generator/backfill.py && python /home/appuser/prometheus_data_generator/main.py"
     ports:
     - 9000:9000
-    command:
-    - --config.yml=/home/appuser/config.yml
     volumes:
-    - ./config.yml:/config.yml:ro
+    - ./config.yml:/home/appuser/config.yml
     privileged: true
-    restart: always
