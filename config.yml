@@ -7,7 +7,7 @@ config:
     sequence:
       - eval_time: 1
         interval: 5
-        error_rate: 0.1
+        error_rate: 0.03
         median: 60
         standard_deviation: 7.5
         minimum: 0
@@ -33,7 +33,7 @@ config:
     sequence:
       - eval_time: 1
         interval: 5
-        error_rate: 0.1
+        error_rate: 0.03
         median: 10
         standard_deviation: 3
         minimum: 0
@@ -60,7 +60,7 @@ config:
         interval: 5
         error_rate: 0.1
         median: 0.8
-        standard_deviation: 0.1
+        standard_deviation: 0.03
         minimum: 0
         maximum: 2
         backfill_range_hours: 720

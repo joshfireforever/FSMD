@@ -76,10 +76,6 @@
               {
                 "id": "displayName",
                 "value": "I/O Fraction"
-              },
-              {
-                "id": "max",
-                "value": 1
               }
             ]
           },
@@ -92,10 +88,6 @@
               {
                 "id": "displayName",
                 "value": "Initial RMS pressure tendency"
-              },
-              {
-                "id": "max",
-                "value": 1
               }
             ]
           },
@@ -108,10 +100,6 @@
               {
                 "id": "displayName",
                 "value": "Total Runtime"
-              },
-              {
-                "id": "max",
-                "value": 1
               }
             ]
           }
@@ -131,7 +119,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "lastNotNull"
+            "last"
           ],
           "fields": "",
           "values": false
@@ -1057,13 +1045,13 @@
     "list": []
   },
   "time": {
-    "from": "now-30d",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "FSMD",
   "uid": "zEuaBb6nk",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }
