@@ -24,9 +24,8 @@ services:
       - ./FSMD.json:/var/lib/grafana/dashboards/FSMD.json
     restart: always
   prometheus-data-generator:
-    image: joshfireforever/prometheus-data-generator:latest
+    image: joshfireforever/prometheus-data-generator:1.0
     container_name: prometheus-data-generator
-    command: bash -c "python /home/appuser/prometheus_data_generator/backfill.py && python /home/appuser/prometheus_data_generator/main.py"
     ports:
     - 9000:9000
     volumes:

@@ -1,36 +1,80 @@
+#0 for standard_deviation creates a Boolean value.
 ---
 config:
-  - name: total_runtime_minutes
+  - name: Total_Runtime
     description: The amount of runtime each forecast takes, in minutes.
     type: gauge
     sequence:
       - eval_time: 1
         interval: 5
+        error_rate: 0.1
         median: 60
         standard_deviation: 7.5
         minimum: 0
         maximum: 120
-  - name: I_O_Fraction_percent
+        error_rate: 10
+        backfill_range_hours: 720
+        backfill_interval_hours: 6
+        backfill_starting_hour: 0
+  - name: Total_Runtime_data
+    description: Boolean of whether or not the data came in, as 0 or 1.
+    type: gauge
+    sequence:
+      - eval_time: 1
+        interval: 5
+        error_rate: 0.1
+        standard_deviation: 0 #Boolean metric
+        backfill_range_hours: 720
+        backfill_interval_hours: 6
+        backfill_starting_hour: 0
+  - name: I_O_Fraction
     description: The ratio of time spent in input to time spent in output.
     type: gauge
     sequence:
       - eval_time: 1
         interval: 5
+        error_rate: 0.1
         median: 10
         standard_deviation: 3
         minimum: 0
         maximum: 100
+        backfill_range_hours: 720
+        backfill_interval_hours: 6
+        backfill_starting_hour: 0
+  - name: I_O_Fraction_data
+    description: Boolean of whether or not the data came in, as 0 or 1.
+    type: gauge
+    sequence:
+      - eval_time: 1
+        interval: 5
+        error_rate: 0.1
+        standard_deviation: 0 #Boolean metric
+        backfill_range_hours: 720
+        backfill_interval_hours: 6
+        backfill_starting_hour: 0
   - name: Initial_RMS_pressure_tendency
     description: The initial RMS pressure tendency.
     type: gauge
     sequence:
       - eval_time: 1
         interval: 5
+        error_rate: 0.1
         median: 0.8
         standard_deviation: 0.1
         minimum: 0
         maximum: 2
-historical_range_hours: 720
-interval_hours: 6
-starting_hour: 0
-real_time_mode: True
+        backfill_range_hours: 720
+        backfill_interval_hours: 6
+        backfill_starting_hour: 0
+  - name: Initial_RMS_pressure_tendency_data
+    description: Boolean of whether or not the data came in, as 0 or 1.
+    type: gauge
+    sequence:
+      - eval_time: 1
+        interval: 5
+        error_rate: 0.1
+        standard_deviation: 0 #Boolean metric
+        backfill_range_hours: 720
+        backfill_interval_hours: 6
+        backfill_starting_hour: 0
+live_mode: True
