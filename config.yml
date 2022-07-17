@@ -12,7 +12,6 @@ config:
         standard_deviation: 7.5
         minimum: 0
         maximum: 120
-        error_rate: 10
         backfill_range_hours: 720
         backfill_interval_hours: 6
         backfill_starting_hour: 0
@@ -58,7 +57,7 @@ config:
     sequence:
       - eval_time: 1
         interval: 5
-        error_rate: 0.1
+        error_rate: 0
         median: 0.8
         standard_deviation: 0.03
         minimum: 0
@@ -72,7 +71,7 @@ config:
     sequence:
       - eval_time: 1
         interval: 5
-        error_rate: 0.1
+        error_rate: 0.03
         standard_deviation: 0 #Boolean metric
         backfill_range_hours: 720
         backfill_interval_hours: 6
