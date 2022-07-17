@@ -77,4 +77,4 @@ config:
         backfill_range_hours: 720
         backfill_interval_hours: 6
         backfill_starting_hour: 0
-live_mode: True
+live_mode: False
