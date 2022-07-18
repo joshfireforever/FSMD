@@ -4,7 +4,7 @@ global:
 scrape_configs:
   - job_name: prometheus-data-generator
     static_configs:
-      - targets: ['docker.for.mac.localhost:9000']
+      - targets: ['docker.for.mac.localhost:9090']
   - job_name: 'prometheus'
     static_configs:
       - targets: ['docker.for.mac.localhost:9000']
