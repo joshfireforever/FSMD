@@ -49,19 +49,21 @@
       "fieldConfig": {
         "defaults": {
           "color": {
+            "fixedColor": "green",
             "mode": "thresholds"
           },
           "mappings": [],
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "#383838d4",
                 "value": null
               },
               {
-                "color": "red",
-                "value": 80
+                "color": "green",
+                "value": 0
               }
             ]
           }
@@ -76,6 +78,42 @@
               {
                 "id": "displayName",
                 "value": "I/O Fraction"
+              },
+              {
+                "id": "unit",
+                "value": "percent"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "#656565",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 0
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 4
+                    },
+                    {
+                      "color": "green",
+                      "value": 7
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 13
+                    },
+                    {
+                      "color": "red",
+                      "value": 16
+                    }
+                  ]
+                }
               }
             ]
           },
@@ -88,6 +126,38 @@
               {
                 "id": "displayName",
                 "value": "Initial RMS pressure tendency"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "#585858",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 0
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 0.6
+                    },
+                    {
+                      "color": "green",
+                      "value": 0.7
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 0.9
+                    },
+                    {
+                      "color": "red",
+                      "value": 1
+                    }
+                  ]
+                }
               }
             ]
           },
@@ -100,6 +170,42 @@
               {
                 "id": "displayName",
                 "value": "Total Runtime"
+              },
+              {
+                "id": "unit",
+                "value": "m"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "#646464",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 0
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 45
+                    },
+                    {
+                      "color": "green",
+                      "value": 52.5
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 67.5
+                    },
+                    {
+                      "color": "red",
+                      "value": 74.9999
+                    }
+                  ]
+                }
               }
             ]
           }
@@ -134,7 +240,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
-          "expr": "I_O_Fraction / I_O_Fraction_data",
+          "expr": "I_O_Fraction",
           "legendFormat": "__auto",
           "range": true,
           "refId": "I/O Fraction"
@@ -145,11 +251,11 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
-          "expr": "Initial_RMS_pressure_tendency / Initial_RMS_pressure_tendency_data",
+          "expr": "Total_Runtime",
           "hide": false,
           "legendFormat": "__auto",
           "range": true,
-          "refId": "Initial RMS pressure tendency"
+          "refId": "Total Runtime"
         },
         {
           "datasource": {
@@ -157,11 +263,11 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
-          "expr": "Total_Runtime / Total_Runtime_data",
+          "expr": "Initial_RMS_pressure_tendency",
           "hide": false,
           "legendFormat": "__auto",
           "range": true,
-          "refId": "Total Runtime"
+          "refId": "Initial RMS pressure tendency"
         }
       ],
       "title": "MOST RECENT FORECAST PLACEHOLDER",
@@ -307,8 +413,8 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "editorMode": "builder",
-          "expr": "I_O_Fraction / I_O_Fraction_data",
+          "editorMode": "code",
+          "expr": "I_O_Fraction >= 0",
           "legendFormat": "__auto",
           "range": true,
           "refId": "I/O Fraction"
@@ -318,15 +424,18 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "editorMode": "builder",
-          "expr": "avg_over_time(I_O_Fraction[4d])",
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "avg_over_time((I_O_Fraction > 0)[4d:])",
           "hide": false,
+          "interval": "",
           "legendFormat": "__auto",
           "range": true,
           "refId": "Rolling Average (4d)"
         }
       ],
       "title": "I/O fraction",
+      "transformations": [],
       "type": "timeseries"
     },
     {
@@ -454,7 +563,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
-          "expr": "Initial_RMS_pressure_tendency / Initial_RMS_pressure_tendency_data",
+          "expr": "Initial_RMS_pressure_tendency >= 0",
           "legendFormat": "__auto",
           "range": true,
           "refId": "Initial RMS pressure tendency"
@@ -464,8 +573,8 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "editorMode": "builder",
-          "expr": "avg_over_time(Initial_RMS_pressure_tendency[4d])",
+          "editorMode": "code",
+          "expr": "avg_over_time((Initial_RMS_pressure_tendency > 0)[4d:])",
           "hide": false,
           "legendFormat": "__auto",
           "range": true,
@@ -473,6 +582,7 @@
         }
       ],
       "title": "Initial RMS pressure tendency",
+      "transformations": [],
       "type": "timeseries"
     },
     {
@@ -595,9 +705,7 @@
       "id": 2,
       "options": {
         "legend": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": [],
           "displayMode": "list",
           "placement": "bottom"
         },
@@ -613,7 +721,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
-          "expr": "Total_Runtime / Total_Runtime_data",
+          "expr": "Total_Runtime >= 0",
           "legendFormat": "__auto",
           "range": true,
           "refId": "Total Runtime"
@@ -623,8 +731,8 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "editorMode": "builder",
-          "expr": "avg_over_time(Total_Runtime[4d])",
+          "editorMode": "code",
+          "expr": "avg_over_time((Total_Runtime > 0)[4d:])",
           "hide": false,
           "legendFormat": "__auto",
           "range": true,
@@ -632,6 +740,35 @@
         }
       ],
       "title": "Total runtime",
+      "transformations": [
+        {
+          "id": "filterByValue",
+          "options": {
+            "filters": [
+              {
+                "config": {
+                  "id": "lower",
+                  "options": {
+                    "value": 0
+                  }
+                },
+                "fieldName": "{__name__=\"Total_Runtime\", instance=\"docker.for.mac.localhost:9000\", job=\"prometheus-data-generator\"}"
+              },
+              {
+                "config": {
+                  "id": "lower",
+                  "options": {
+                    "value": 0
+                  }
+                },
+                "fieldName": "{instance=\"docker.for.mac.localhost:9000\", job=\"prometheus-data-generator\"}"
+              }
+            ],
+            "match": "any",
+            "type": "exclude"
+          }
+        }
+      ],
       "type": "timeseries"
     },
     {
@@ -643,7 +780,8 @@
         "defaults": {
           "color": {
             "fixedColor": "green",
-            "mode": "fixed"
+            "mode": "fixed",
+            "seriesBy": "max"
           },
           "custom": {
             "axisLabel": "",
@@ -678,33 +816,14 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
-              },
-              {
                 "color": "red",
-                "value": 80
+                "value": null
               }
             ]
           },
           "unit": "bool_yes_no"
         },
         "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "True"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "green",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
           {
             "matcher": {
               "id": "byFrameRefID",
@@ -747,7 +866,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
-          "expr": "I_O_Fraction_data == 1",
+          "expr": "I_O_Fraction >= bool 0 == 1",
           "legendFormat": "__auto",
           "range": true,
           "refId": "True"
@@ -758,7 +877,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
-          "expr": "I_O_Fraction_data == 0",
+          "expr": "I_O_Fraction >= bool 0 == 0",
           "hide": false,
           "legendFormat": "__auto",
           "range": true,
@@ -777,7 +896,8 @@
         "defaults": {
           "color": {
             "fixedColor": "green",
-            "mode": "fixed"
+            "mode": "fixed",
+            "seriesBy": "max"
           },
           "custom": {
             "axisLabel": "",
@@ -812,33 +932,14 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
-              },
-              {
                 "color": "red",
-                "value": 80
+                "value": null
               }
             ]
           },
           "unit": "bool_yes_no"
         },
         "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "True"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "green",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
           {
             "matcher": {
               "id": "byFrameRefID",
@@ -862,7 +963,7 @@
         "x": 12,
         "y": 20
       },
-      "id": 14,
+      "id": 15,
       "options": {
         "legend": {
           "calcs": [],
@@ -881,7 +982,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
-          "expr": "Initial_RMS_pressure_tendency_data == 1",
+          "expr": "Total_Runtime >= bool 0 == 1",
           "legendFormat": "__auto",
           "range": true,
           "refId": "True"
@@ -892,14 +993,14 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
-          "expr": "Initial_RMS_pressure_tendency_data == 0",
+          "expr": "Total_Runtime >= bool 0 == 0",
           "hide": false,
           "legendFormat": "__auto",
           "range": true,
           "refId": "False"
         }
       ],
-      "title": "Initial RMS pressure tendency - data acquired",
+      "title": "Total Runtime - data acquired",
       "type": "timeseries"
     },
     {
@@ -911,7 +1012,8 @@
         "defaults": {
           "color": {
             "fixedColor": "green",
-            "mode": "fixed"
+            "mode": "fixed",
+            "seriesBy": "max"
           },
           "custom": {
             "axisLabel": "",
@@ -946,33 +1048,14 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
-              },
-              {
                 "color": "red",
-                "value": 80
+                "value": null
               }
             ]
           },
           "unit": "bool_yes_no"
         },
         "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "True"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "green",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
           {
             "matcher": {
               "id": "byFrameRefID",
@@ -996,7 +1079,7 @@
         "x": 12,
         "y": 23
       },
-      "id": 13,
+      "id": 16,
       "options": {
         "legend": {
           "calcs": [],
@@ -1015,7 +1098,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
-          "expr": "Total_Runtime_data == 1",
+          "expr": "Initial_RMS_pressure_tendency >= bool 0 == 1",
           "legendFormat": "__auto",
           "range": true,
           "refId": "True"
@@ -1026,14 +1109,14 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
-          "expr": "Total_Runtime_data == 0",
+          "expr": "Initial_RMS_pressure_tendency >= bool 0 == 0",
           "hide": false,
           "legendFormat": "__auto",
           "range": true,
           "refId": "False"
         }
       ],
-      "title": "Total Runtime - data acquired",
+      "title": "Initial RMS pressure tendency- data acquired",
       "type": "timeseries"
     }
   ],
@@ -1045,13 +1128,13 @@
     "list": []
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-30d",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "FSMD",
   "uid": "zEuaBb6nk",
-  "version": 3,
+  "version": 1,
   "weekStart": ""
 }

@@ -8,21 +8,11 @@ config:
       - eval_time: 1
         interval: 5
         error_rate: 0.03
+        missing_data_rate: 0.1
         median: 60
         standard_deviation: 7.5
         minimum: 0
         maximum: 120
-        backfill_range_hours: 720
-        backfill_interval_hours: 6
-        backfill_starting_hour: 0
-  - name: Total_Runtime_data
-    description: Boolean of whether or not the data came in, as 0 or 1.
-    type: gauge
-    sequence:
-      - eval_time: 1
-        interval: 5
-        error_rate: 0.1
-        standard_deviation: 0 #Boolean metric
         backfill_range_hours: 720
         backfill_interval_hours: 6
         backfill_starting_hour: 0
@@ -33,21 +23,11 @@ config:
       - eval_time: 1
         interval: 5
         error_rate: 0.03
+        missing_data_rate: 0.1
         median: 10
         standard_deviation: 3
         minimum: 0
         maximum: 100
-        backfill_range_hours: 720
-        backfill_interval_hours: 6
-        backfill_starting_hour: 0
-  - name: I_O_Fraction_data
-    description: Boolean of whether or not the data came in, as 0 or 1.
-    type: gauge
-    sequence:
-      - eval_time: 1
-        interval: 5
-        error_rate: 0.1
-        standard_deviation: 0 #Boolean metric
         backfill_range_hours: 720
         backfill_interval_hours: 6
         backfill_starting_hour: 0
@@ -57,7 +37,8 @@ config:
     sequence:
       - eval_time: 1
         interval: 5
-        error_rate: 0
+        error_rate: 0.03
+        missing_data_rate: 0.1
         median: 0.8
         standard_deviation: 0.03
         minimum: 0
@@ -65,15 +46,4 @@ config:
         backfill_range_hours: 720
         backfill_interval_hours: 6
         backfill_starting_hour: 0
-  - name: Initial_RMS_pressure_tendency_data
-    description: Boolean of whether or not the data came in, as 0 or 1.
-    type: gauge
-    sequence:
-      - eval_time: 1
-        interval: 5
-        error_rate: 0.03
-        standard_deviation: 0 #Boolean metric
-        backfill_range_hours: 720
-        backfill_interval_hours: 6
-        backfill_starting_hour: 0
-live_mode: False
+live_mode: True
