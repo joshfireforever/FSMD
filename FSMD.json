@@ -230,6 +230,7 @@
           "fields": "",
           "values": false
         },
+        "text": {},
         "textMode": "auto"
       },
       "pluginVersion": "9.0.3",
@@ -290,8 +291,8 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "bars",
-            "fillOpacity": 0,
-            "gradientMode": "none",
+            "fillOpacity": 100,
+            "gradientMode": "scheme",
             "hideFrom": {
               "legend": false,
               "tooltip": false,
@@ -313,7 +314,7 @@
               "mode": "none"
             },
             "thresholdsStyle": {
-              "mode": "off"
+              "mode": "line"
             }
           },
           "mappings": [],
@@ -321,12 +322,28 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "#5a5a5a",
                 "value": null
               },
               {
                 "color": "red",
-                "value": 12
+                "value": 4
+              },
+              {
+                "color": "yellow",
+                "value": 7
+              },
+              {
+                "color": "green",
+                "value": 10
+              },
+              {
+                "color": "yellow",
+                "value": 13
+              },
+              {
+                "color": "red",
+                "value": 16
               }
             ]
           },
@@ -340,19 +357,12 @@
             },
             "properties": [
               {
-                "id": "custom.drawStyle",
-                "value": "bars"
-              },
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "blue",
-                  "mode": "fixed"
-                }
-              },
-              {
                 "id": "displayName",
                 "value": "I/O Fraction"
+              },
+              {
+                "id": "custom.drawStyle",
+                "value": "bars"
               },
               {
                 "id": "custom.fillOpacity",
@@ -367,8 +377,8 @@
             },
             "properties": [
               {
-                "id": "custom.drawStyle",
-                "value": "line"
+                "id": "displayName",
+                "value": "Rolling average (4d)"
               },
               {
                 "id": "color",
@@ -378,8 +388,8 @@
                 }
               },
               {
-                "id": "displayName",
-                "value": "Rolling average (4d)"
+                "id": "custom.drawStyle",
+                "value": "line"
               },
               {
                 "id": "custom.fillOpacity",
@@ -390,7 +400,7 @@
         ]
       },
       "gridPos": {
-        "h": 8,
+        "h": 11,
         "w": 12,
         "x": 0,
         "y": 9
@@ -407,6 +417,7 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "9.0.3",
       "targets": [
         {
           "datasource": {
@@ -414,10 +425,11 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "I_O_Fraction >= 0",
+          "expr": "I_O_Fraction >= 0 < 10",
+          "hide": false,
           "legendFormat": "__auto",
           "range": true,
-          "refId": "I/O Fraction"
+          "refId": "I/O Fraction < 10"
         },
         {
           "datasource": {
@@ -432,6 +444,18 @@
           "legendFormat": "__auto",
           "range": true,
           "refId": "Rolling Average (4d)"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "I_O_Fraction >= 10",
+          "hide": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "I/O Fraction >= 10"
         }
       ],
       "title": "I/O fraction",
@@ -454,8 +478,8 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "bars",
-            "fillOpacity": 0,
-            "gradientMode": "none",
+            "fillOpacity": 100,
+            "gradientMode": "scheme",
             "hideFrom": {
               "legend": false,
               "tooltip": false,
@@ -467,173 +491,87 @@
             "scaleDistribution": {
               "type": "linear"
             },
-            "showPoints": "auto",
+            "showPoints": "never",
             "spanNulls": false,
             "stacking": {
               "group": "A",
               "mode": "none"
             },
             "thresholdsStyle": {
-              "mode": "off"
+              "mode": "line"
             }
           },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
+          "mappings": [
+            {
+              "options": {
+                "from": 0,
+                "result": {
+                  "color": "red",
+                  "index": 0
+                },
+                "to": 45
               },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "Rolling average (4d)"
+              "type": "range"
             },
-            "properties": [
-              {
-                "id": "custom.drawStyle",
-                "value": "line"
+            {
+              "options": {
+                "from": 45,
+                "result": {
+                  "color": "yellow",
+                  "index": 1
+                },
+                "to": 52.5
               },
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "purple",
-                  "mode": "fixed"
+              "type": "range"
+            },
+            {
+              "options": {
+                "from": 52.5,
+                "result": {
+                  "color": "green",
+                  "index": 2
+                },
+                "to": 67.5
+              },
+              "type": "range"
+            },
+            {
+              "options": {
+                "pattern": "> 67.5",
+                "result": {
+                  "color": "red",
+                  "index": 3
                 }
               },
-              {
-                "id": "displayName",
-                "value": "Rolling average (4d)"
-              },
-              {
-                "id": "custom.fillOpacity",
-                "value": 0
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "Initial RMS pressure tendency"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Initial RMS Pressure Tendency"
-              },
-              {
-                "id": "custom.fillOpacity",
-                "value": 100
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 9
-      },
-      "id": 4,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "builder",
-          "expr": "Initial_RMS_pressure_tendency >= 0",
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "Initial RMS pressure tendency"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "code",
-          "expr": "avg_over_time((Initial_RMS_pressure_tendency > 0)[4d:])",
-          "hide": false,
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "Rolling average (4d)"
-        }
-      ],
-      "title": "Initial RMS pressure tendency",
-      "transformations": [],
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "bars",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
+              "type": "regex"
             }
-          },
-          "mappings": [],
+          ],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "#4d4d4d",
                 "value": null
               },
               {
                 "color": "red",
-                "value": 80
+                "value": 45
+              },
+              {
+                "color": "yellow",
+                "value": 52.5
+              },
+              {
+                "color": "green",
+                "value": 60
+              },
+              {
+                "color": "#EAB839",
+                "value": 67.5
+              },
+              {
+                "color": "red",
+                "value": 75
               }
             ]
           },
@@ -666,41 +604,14 @@
                 "value": 0
               }
             ]
-          },
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "Total Runtime"
-            },
-            "properties": [
-              {
-                "id": "custom.drawStyle",
-                "value": "bars"
-              },
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "blue",
-                  "mode": "fixed"
-                }
-              },
-              {
-                "id": "displayName",
-                "value": "Total Runtime"
-              },
-              {
-                "id": "custom.fillOpacity",
-                "value": 100
-              }
-            ]
           }
         ]
       },
       "gridPos": {
-        "h": 9,
+        "h": 11,
         "w": 12,
-        "x": 0,
-        "y": 17
+        "x": 12,
+        "y": 9
       },
       "id": 2,
       "options": {
@@ -844,8 +755,8 @@
       "gridPos": {
         "h": 3,
         "w": 12,
-        "x": 12,
-        "y": 17
+        "x": 0,
+        "y": 20
       },
       "id": 12,
       "options": {
@@ -954,6 +865,21 @@
                 }
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "True"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              }
+            ]
           }
         ]
       },
@@ -1001,6 +927,172 @@
         }
       ],
       "title": "Total Runtime - data acquired",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "blue",
+            "mode": "fixed"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "axisSoftMin": -4,
+            "barAlignment": 0,
+            "drawStyle": "bars",
+            "fillOpacity": 100,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "line"
+            }
+          },
+          "mappings": [],
+          "max": 1,
+          "min": 0.5,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#717171",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0.6
+              },
+              {
+                "color": "yellow",
+                "value": 0.7
+              },
+              {
+                "color": "green",
+                "value": 0.8
+              },
+              {
+                "color": "yellow",
+                "value": 0.9
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "Rolling average (4d)"
+            },
+            "properties": [
+              {
+                "id": "custom.drawStyle",
+                "value": "line"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "purple",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "displayName",
+                "value": "Rolling average (4d)"
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "Initial RMS pressure tendency"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Initial RMS Pressure Tendency"
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 100
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 0,
+        "y": 23
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "builder",
+          "expr": "Initial_RMS_pressure_tendency >= 0",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "Initial RMS pressure tendency"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time((Initial_RMS_pressure_tendency > 0)[4d:])",
+          "hide": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "Rolling average (4d)"
+        }
+      ],
+      "title": "Initial RMS pressure tendency",
+      "transformations": [],
       "type": "timeseries"
     },
     {
@@ -1076,8 +1168,8 @@
       "gridPos": {
         "h": 3,
         "w": 12,
-        "x": 12,
-        "y": 23
+        "x": 0,
+        "y": 34
       },
       "id": 16,
       "options": {

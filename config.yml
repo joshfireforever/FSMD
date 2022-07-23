@@ -7,8 +7,8 @@ config:
     sequence:
       - eval_time: 1
         interval: 5
-        error_rate: 0.03
-        missing_data_rate: 0.1
+        bad_data_rate: 0.02
+        missing_data_rate: 0.05
         median: 60
         standard_deviation: 7.5
         minimum: 0
@@ -22,8 +22,8 @@ config:
     sequence:
       - eval_time: 1
         interval: 5
-        error_rate: 0.03
-        missing_data_rate: 0.1
+        bad_data_rate: 0.02
+        missing_data_rate: 0.05
         median: 10
         standard_deviation: 3
         minimum: 0
@@ -37,13 +37,13 @@ config:
     sequence:
       - eval_time: 1
         interval: 5
-        error_rate: 0.03
-        missing_data_rate: 0.1
+        bad_data_rate: 0.02
+        missing_data_rate: 0.05
         median: 0.8
-        standard_deviation: 0.03
+        standard_deviation: 0.1
         minimum: 0
         maximum: 2
         backfill_range_hours: 720
         backfill_interval_hours: 6
         backfill_starting_hour: 0
-live_mode: True
+live_mode: False
