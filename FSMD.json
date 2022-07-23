@@ -271,7 +271,7 @@
           "refId": "Initial RMS pressure tendency"
         }
       ],
-      "title": "MOST RECENT FORECAST PLACEHOLDER",
+      "title": "MOST RECENT FORECAST",
       "type": "stat"
     },
     {
@@ -383,7 +383,7 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "purple",
+                  "fixedColor": "#ff0ac3",
                   "mode": "fixed"
                 }
               },
@@ -425,11 +425,11 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "I_O_Fraction >= 0 < 10",
+          "expr": "I_O_Fraction >= 0",
           "hide": false,
           "legendFormat": "__auto",
           "range": true,
-          "refId": "I/O Fraction < 10"
+          "refId": "I/O Fraction"
         },
         {
           "datasource": {
@@ -444,18 +444,6 @@
           "legendFormat": "__auto",
           "range": true,
           "refId": "Rolling Average (4d)"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "code",
-          "expr": "I_O_Fraction >= 10",
-          "hide": false,
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "I/O Fraction >= 10"
         }
       ],
       "title": "I/O fraction",
@@ -591,7 +579,7 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "purple",
+                  "fixedColor": "#ff03e8",
                   "mode": "fixed"
                 }
               },
@@ -1016,7 +1004,7 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "purple",
+                  "fixedColor": "#ff00b3",
                   "mode": "fixed"
                 }
               },
@@ -1227,6 +1215,6 @@
   "timezone": "",
   "title": "FSMD",
   "uid": "zEuaBb6nk",
-  "version": 1,
+  "version": 4,
   "weekStart": ""
 }
