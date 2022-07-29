@@ -7,7 +7,7 @@ config:
     sequence:
       - eval_time: 1
         interval: 5
-        bad_data_rate: 0.02
+        bad_data_rate: 0.01
         missing_data_rate: 0.05
         median: 60
         standard_deviation: 7.5
@@ -22,7 +22,7 @@ config:
     sequence:
       - eval_time: 1
         interval: 5
-        bad_data_rate: 0.02
+        bad_data_rate: 0.01
         missing_data_rate: 0.05
         median: 10
         standard_deviation: 3
@@ -37,7 +37,7 @@ config:
     sequence:
       - eval_time: 1
         interval: 5
-        bad_data_rate: 0.02
+        bad_data_rate: 0.01
         missing_data_rate: 0.05
         median: 0.8
         standard_deviation: 0.1
